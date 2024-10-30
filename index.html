@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YazansfahExecutor</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f, #fbb034);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .button {
+            background-color: #ff5722;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            margin-top: 20px; /* Adds space above the buttons */
+            opacity: 0; /* Start invisible for animation */
+            transform: translateY(20px); /* Start lower for animation effect */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+        }
+        .button.visible {
+            opacity: 1; /* Fully visible */
+            transform: translateY(0); /* Move to original position */
+        }
+        .button:hover {
+            background-color: #e64a19;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        #userInfo {
+            margin-top: 40px; /* Space above the user info */
+        }
+        #unlockButtons {
+            margin-top: 40px; /* Space above the unlock buttons */
+        }
+        .button {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to YazansfahExecutor!!</h1>
+    
+
+    
+        <a href="https://gofile.io/d/LqVYQP"><Button>Download Executor</Button></a>
+        <a href="https://discord.gg/ZngdrGsm"><button>Join our discord!</button></a>
+    
+
+    <script>
+        const users = {};
+
+        function toggleForms() {
+            document.getElementById('loginSection').classList.toggle('hidden');
+            document.getElementById('signupSection').classList.toggle('hidden');
+        }
+
+        function signup() {
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (username in users) {
+                alert('Username already exists!');
+                return;
+            }
+            users[username] = { password, email };
+            alert('Sign up successful! You can now log in.');
+            toggleForms();
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (users[username] && users[username].password === password) {
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('userInfo').classList.remove('hidden');
+                document.getElementById('displayUsername').innerText = username;
+                document.getElementById('email').innerText = users[username].email;
+
+                // Show the unlock buttons with animation
+                const unlockButtons = document.getElementById('unlockButtons');
+                unlockButtons.classList.remove('hidden');
+
+                // Add the visible class to buttons for animation
+                const buttons = unlockButtons.getElementsByClassName('button');
+                Array.from(buttons).forEach(button => {
+                    button.classList.add('visible');
+                });
+            } else {
+                alert('Invalid username or password');
+            }
+        }
+
+        function viewEmail() {
+            alert(`Email: ${document.getElementById('email').innerText}`);
+            // You can add logic to reveal the password if desired
+        }
+    </script>
+</body>
+</html>
